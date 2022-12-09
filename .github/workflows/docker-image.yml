@@ -18,7 +18,8 @@ jobs:
       run: |
         docker push bruno5200/pe-frontend:latest
     - name: Webhook
-      uses: jasongitmail/fast-webhook@v1
+      uses: joelwmale/webhook-action@master
       with:
           url: ${{ secrets.WEBHOOK_URL }}
-          json: '{}'
+          headers: '{"repository": "${{ secrets.DOCKERHUB_USER }}/pe-frontend:latest"}'
+          body: '{"event": "deployment", "repository": "${{ secrets.DOCKERHUB_USER }}/pe-frontend:latest"}'
